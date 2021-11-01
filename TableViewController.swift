@@ -66,6 +66,7 @@ class TableViewController: UITableViewController {
         // namesから該当する行の文字列を取得してセルに設定します。
         // indexPath.rowで何行目かがわかります。
         cell.textLabel?.text = taskArray[indexPath.row]
+        
 
         // Configure the cell...
 
@@ -77,6 +78,7 @@ class TableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
             if editingStyle == UITableViewCell.EditingStyle.delete {
                 taskArray.remove(at: indexPath.row)
+                UserDefaults.standard.set(taskArray, forKey: "add")
                 tableView.deleteRows(at: [indexPath as IndexPath], with: UITableView.RowAnimation.automatic)
             }
         }
