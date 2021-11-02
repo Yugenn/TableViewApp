@@ -37,7 +37,7 @@ class TableViewController: UITableViewController {
         super.viewWillAppear(animated) //決まり文句
         let userDefaults = UserDefaults.standard
         //"add"というキーで保存された値がなにかある -> 値をtaskArrayへ
-        if userDefaults.objectIsForced(forKey: "add") != nil {
+        if userDefaults.object(forKey: "add") != nil {
             taskArray = userDefaults.object(forKey: "add") as! [String]
         }
             //tableViewを更新
@@ -66,12 +66,22 @@ class TableViewController: UITableViewController {
         // namesから該当する行の文字列を取得してセルに設定します。
         // indexPath.rowで何行目かがわかります。
         cell.textLabel?.text = taskArray[indexPath.row]
+        
 
         // Configure the cell...
 
         return cell
     }
     
+    
+        // 追加：セルの削除機能
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+            if editingStyle == UITableViewCell.EditingStyle.delete {
+                taskArray.remove(at: indexPath.row)
+                UserDefaults.standard.set(taskArray, forKey: "add")
+                tableView.deleteRows(at: [indexPath as IndexPath], with: UITableView.RowAnimation.automatic)
+            }
+        }
 
     /*
     // Override to support conditional editing of the table view.
@@ -81,17 +91,7 @@ class TableViewController: UITableViewController {
     }
     */
 
-    /*
-    // Override to support editing the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
-    }
-    */
+    
 
     /*
     // Override to support rearranging the table view.
