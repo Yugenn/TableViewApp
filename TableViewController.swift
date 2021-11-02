@@ -37,7 +37,7 @@ class TableViewController: UITableViewController {
         super.viewWillAppear(animated) //決まり文句
         let userDefaults = UserDefaults.standard
         //"add"というキーで保存された値がなにかある -> 値をtaskArrayへ
-        if userDefaults.objectIsForced(forKey: "add") != nil {
+        if userDefaults.object(forKey: "add") != nil {
             taskArray = userDefaults.object(forKey: "add") as! [String]
         }
             //tableViewを更新

@@ -25,8 +25,9 @@ class AddListViewController: UIViewController {
     @IBAction func addTask(_ sender: Any) {
         
         let userDefaults = UserDefaults.standard //そのままだと長いので変数に入れる
-        taskArray.append(addTextField.text!) //TextFieldで記入されたテキストを入れる
-        
+        if(addTextField.text! != ""){
+            taskArray.append(addTextField.text!) //TextFieldで記入されたテキストを入れる
+        }
         
         
         userDefaults.set(taskArray, forKey: "add")
